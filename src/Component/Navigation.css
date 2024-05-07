@@ -1,0 +1,42 @@
+.NavigationBar {
+    align-self: stretch;/*아이템의 가로 영역값을 최대로*/
+    align-items: center;/*컨테이너의 세로축의 중앙으로 정렬*/
+    background-color: #B8DCB5;/*배경색*/
+    border-radius: 0 0 10px 10px; /*밑에 둥글게*/
+    box-sizing: border-box;/*박스의 크기를 테두리를 기준으로 생각한다*/
+    display: flex;/*아이템을 가로방향으로 배치*/
+    flex-direction: row;/*아이템을 왼쪽에서 오른쪽으로 배치*/
+    justify-content: space-between;/*요소들 사이에 동일한 간격을 둠*/
+    justify-content: flex-start;/*요소들을 컨테이너의 왼쪽으로 정렬*/
+    max-width: 100%;/*가로 최대로*/
+    margin-top:0; margin-bottom:20px;/*위와 아래의 마진값 설정*/
+  }
+
+  .connecteam {
+    align-items: center; /*컨테이너의 세로축의 중앙으로 정렬*/
+    cursor: pointer;/*마우스 커서의 모양*/
+    display: flex;/*아이템을 가로방향으로 배치*/
+    font-family: inherit;/*폰트를 부모의 속성을 물려받음*/
+    flex-shrink: 0;/*자동으로 아이템 너비가 축소되지 않도록 방지 (if 1을 넣으면 너비가 축소)*/
+    font-size: 20px; font-weight: bold;/*폰트 크기, 굵기 지정*/
+    justify-content: center;/*컨테이너의 가로축의 중앙으로 정렬*/
+    margin: 0; width: 370px; height: 50px;/*connecteam 크기*/
+    max-width: 100%;/*가로넓이의 100% 사용*/
+    position: relative;/*원래 위치를 기준으로 생각하기*/
+  }
+
+.NavigationBar_menu {
+    display: inline-flex;/*한 줄로 배치가능*/
+    align-items: center;/*컨테이너의 세로축의 중앙으로 정렬*/
+    justify-content: center;/*컨테이너의 가로축의 중앙으로 정렬*/
+    padding: 8px 16px;/*패딩 크기 지정*/
+    font-size: 16px; /*글자크기 지정*/
+    border: none;/*외곽선 없음*/
+    color: black;/*글자색 지정*/
+    cursor: pointer;/*마우스 커서 지정*/
+    flex: 0 0 auto;/*0 0 아이템이 늘어나지도(shrink) 줄어들지도(grow) 않는 것을 의미 & auto 유동적으로 그때그때 달라지는 것을 허락*/
+    margin-left: 180px;/*왼쪽 마진*/
+  }
+.NavigationBar_menu:hover {
+    font-weight:Bold; /*커서 올리면 글자 진해짐*/
+}
