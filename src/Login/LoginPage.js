@@ -8,17 +8,21 @@ function LoginPage(){
   const [error, setError] = useState(''); //에러 메시지
   const SERVER_URL = 'http://localhost:8080/login';
 
-  const goLogin = async () => { //비동기적 로그인 시도
-    try {
-      const response = await axios.post(SERVER_URL, { id, pw }); //서버로 로그인 요청 보냄
-      alert(response.data)
-      console.log("success"); //서버로부터 받은 데이터 콘솔에 출력
-      window.location.href = '/BoardPage'; //로그인이 성공하면 BoardPage로 이동
-    }
-    catch (err) { //서버로부터 에러 응답이 오면
-      setError(err.response.data.message); //에러 메시지를 상태에 저장
-      window.location.href = '/BoardPage';
-    }
+  // const goLogin = async () => { //비동기적 로그인 시도
+  //   try {
+  //     const response = await axios.post(SERVER_URL, { id, pw }); //서버로 로그인 요청 보냄
+  //     alert(response.data)
+  //     console.log("success"); //서버로부터 받은 데이터 콘솔에 출력
+  //     window.location.href = '/BoardPage'; //로그인이 성공하면 BoardPage로 이동
+  //   }
+  //   catch (err) { //서버로부터 에러 응답이 오면
+  //     setError(err.response.data.message); //에러 메시지를 상태에 저장
+  //     window.location.href = '/BoardPage';
+  //   }
+  // };
+
+  const goLogin = () =>{
+    window.location.href = '/BoardPage';
   };
 
   return (
