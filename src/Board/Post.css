@@ -30,7 +30,7 @@
   width: 100%; /* 이미지가 부모 요소에 꽉 차도록 */
   height: auto; /* 이미지의 비율을 유지하여 자동 조정 */
 }
-.name{
+.pname{
   font-size : 20px;
   font-weight:bold;
 }
@@ -63,7 +63,7 @@
   font-weight: 600;
 }
 
-.title p {
+.ptitle p {
   margin: 0;
   padding:1%;
 }
@@ -75,7 +75,7 @@
     padding:10px;
 }
 
-.content p {
+.contents p {
     margin: 0;
 }
 

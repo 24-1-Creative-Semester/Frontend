@@ -6,23 +6,30 @@ function LoginPage(){
   const [id, setId] = useState(''); //아이디 상태 관리
   const [pw, setPassword] = useState(''); //비밀번호
   const [error, setError] = useState(''); //에러 메시지
-  const SERVER_URL = 'http://localhost:8080/login';
+  const SERVER_URL = 'http://172.16.86.241:8080/login';
 
-  // const goLogin = async () => { //비동기적 로그인 시도
+  // const goLogin = async () => { // 비동기적 로그인 시도
   //   try {
-  //     const response = await axios.post(SERVER_URL, { id, pw }); //서버로 로그인 요청 보냄
-  //     alert(response.data)
-  //     console.log("success"); //서버로부터 받은 데이터 콘솔에 출력
-  //     window.location.href = '/BoardPage'; //로그인이 성공하면 BoardPage로 이동
+  //     const response = await axios.post(SERVER_URL, { id, pw }); // 서버로 로그인 요청 보냄
+  //     console.log(response.data);
+  //     if (response.data === true) {
+  //       // 로그인 성공
+  //       console.log("success"); // 서버로부터 받은 데이터 콘솔에 출력
+  //       localStorage.setItem('userID', id); //로컬 스토리지에 아이디 저장.
+  //       window.location.href = '/BoardPage'; // 로그인이 성공하면 BoardPage로 이동
+  //     } else {
+  //       // 로그인 실패
+  //       alert("아이디와 비밀번호를 다시 확인하세요");
+  //       setError('Invalid username or password'); // 에러 메시지를 상태에 저장
+  //     }
   //   }
-  //   catch (err) { //서버로부터 에러 응답이 오면
-  //     setError(err.response.data.message); //에러 메시지를 상태에 저장
-  //     window.location.href = '/BoardPage';
+  //   catch (err) { // 서버로부터 에러 응답이 오면
+  //     setError('An unexpected error occurred'); // 일반적인 에러 메시지 설정
   //   }
   // };
 
-  const goLogin = () =>{
-    window.location.href = '/BoardPage';
+  const goLogin = async()=>{
+    window.location.href="/BoardPage";
   };
 
   return (

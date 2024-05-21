@@ -4,10 +4,12 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './Login/LoginPage';
 import BoardPage from './Board/BoardPage';
-// import RecruitmentPage from './Recruitment/RecruitmentPage';
+import JobPage from './Job/JobPage';
 import WritePage from './Board/WritePage';
 import ViewAllPost from './Board/ViewAllPost';
 import EditPost from './Board/EditPost';
+import ChatPage from './Chat/ChatPage';
+import Profile from './Profile/Profile';
 import "./App.css";
 
 function App() {
@@ -25,9 +27,9 @@ function App() {
           <Route path="/" element={<LoginPage />} />
           <Route path="/BoardPage" element={<BoardPage posts={posts} />} /> {/* posts props 전달 */}
           <Route path="/WritePage" element={<WritePage posts={posts} setPosts={setPosts} />} />
-          {/* <Route path="/ProfilePage" element={<ProfilePage />} /> */}
-          {/* <Route path="/ChatPage" element={<ChatPage />} /> */}
-          {/* <Route path="/RecruitmentPage" element={<RecruitmentPage />} /> */}
+          <Route path="/Profile" element={<Profile />} />
+          <Route path="/ChatPage" element={<ChatPage />} />
+          <Route path="/JobPage" element={<JobPage />} />
           <Route path="/ViewAllPost/:postId" element={<ViewAllPost posts={posts} />} />
           <Route path="/EditPost/:postId" element={<EditPost posts={posts} setPosts={setPosts} />} />
         </Routes>

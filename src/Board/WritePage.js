@@ -66,28 +66,28 @@ function WritePage({ setPosts, posts }) {
                         />
                     </div>
                     <div className='form-group'>
-                        <label htmlFor='tag'>태그</label>
-                        <div className="TagLine">
+                        <label htmlFor='tag2'>태그</label>
+                        <div className="TagLine2">
                             <div 
-                                className={`tag ${selectedTags.includes('frontend') ? 'selected-tag' : ''}`} 
+                                className={`tag2 ${selectedTags.includes('frontend') ? 'selected-tag' : ''}`} 
                                 onClick={() => toggleTag('frontend')}
                             >
                                 frontend
                             </div>
                             <div 
-                                className={`tag ${selectedTags.includes('backend') ? 'selected-tag' : ''}`} 
+                                className={`tag2 ${selectedTags.includes('backend') ? 'selected-tag' : ''}`} 
                                 onClick={() => toggleTag('backend')}
                             >
                                 backend
                             </div>
                             <div 
-                                className={`tag ${selectedTags.includes('ai') ? 'selected-tag' : ''}`} 
+                                className={`tag2 ${selectedTags.includes('ai') ? 'selected-tag' : ''}`} 
                                 onClick={() => toggleTag('ai')}
                             >
                                 ai
                             </div>
                             <div 
-                                className={`tag ${selectedTags.includes('design') ? 'selected-tag' : ''}`} 
+                                className={`tag2 ${selectedTags.includes('design') ? 'selected-tag' : ''}`} 
                                 onClick={() => toggleTag('design')}
                             >
                                 design

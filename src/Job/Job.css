@@ -1,0 +1,34 @@
+.job-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.SejongJob {
+  width: 60%;
+  border-radius: 20px;
+  background-color: #c8c8c8;
+  padding: 20px;
+  font-size: large;
+}
+
+.SejongJob:hover {
+  background-color: #a8a8a8;
+}
+
+.job-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+.job-listing {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+  background-color: #fff;
+}
