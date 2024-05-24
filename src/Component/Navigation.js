@@ -15,13 +15,13 @@ function NavigationBar(){
               navigate('/BoardPage');
               break;
           case '채용 공고':
-              navigate('/RecruitmentPage');
+              navigate('/JobPage');
               break;
           case '채팅':
               navigate('/ChatPage');
               break;
           case '프로필':
-              navigate('/ProfilePage');
+              navigate('/Profile');
               break;
           // 나머지 메뉴들에 대한 경로 설정
           default:

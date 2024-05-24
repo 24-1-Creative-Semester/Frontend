@@ -20,8 +20,10 @@ const Post = ({ post }) => {
                 <div className="authorInfo">
                     <div className="profilePicture">
                         <img className="profileImage" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="프로필 사진" />
+                        {/* <img className="profileImage" src={post.profilePicture} alt="프로필 사진" /> */}
+
                     </div>
-                    <div className="name">{post.author}</div>
+                    <div className="pname">{post.author}</div>
                     <div className="major">{post.major}</div>
                 </div>
                 <div className="numPeople">
@@ -29,12 +31,12 @@ const Post = ({ post }) => {
                 </div>
             </div>
             <div className="titleBox">
-                <div className="title">
+                <div className="ptitle">
                     <p>{post.title}</p>
                 </div>
             </div>
             <div className="contentBox">
-                <div className="content">
+                <div className="contents">
                     <p>{post.content}</p>
                 </div>
             </div>
