@@ -9,24 +9,22 @@ function LoginPage(){
   const SERVER_URL = 'http://172.16.86.241:8080/login';
 
 //  로컬스토리지에 user 정보 다 받아와서 저장
-//   const goLogin = async () => {
-//     try {
-//         const response = await axios.post(SERVER_URL, { id, pw }); // 서버로 로그인 요청 보냄
-//         if (response.data === true) {
-//             // 로그인 성공
-//             const { userID } = response.data;
-//             const userInfoResponse = await axios.get(`/api/user/${userID}`);
-//             const userInfo = userInfoResponse.data;
-//             localStorage.setItem('user', JSON.stringify(userInfo)); // 사용자 정보 저장
-//             window.location.href = '/BoardPage'; // 로그인 성공하면 BoardPage로 이동
-//         } else {
-//             // 로그인 실패
-//             setError('아이디와 비밀번호를 다시 확인하세요');
-//         }
-//     } catch (err) {
-//         // 에러 처리
-//         setError('An unexpected error occurred');
-//     }
+//  const goLogin = async () => {
+//   try {
+//       const response = await axios.post(SERVER_URL, { id, pw }); // 서버로 로그인 요청 보냄
+//       if (response.status === 200) {
+//           // 로그인 성공
+//           const userInfo = response.data; // 서버에서 받은 사용자 정보
+//           localStorage.setItem('user', JSON.stringify(userInfo)); // 사용자 정보 저장
+//           window.location.href = '/BoardPage'; // 로그인 성공하면 BoardPage로 이동
+//       } else {
+//           // 로그인 실패
+//           setError('아이디와 비밀번호를 다시 확인하세요');
+//       }
+//   } catch (err) {
+//       // 에러 처리
+//       setError('An unexpected error occurred');
+//   }
 // };
 
   // 로컬스토리지 ID만 저장
