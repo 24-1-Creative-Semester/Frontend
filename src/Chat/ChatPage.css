@@ -1,21 +1,33 @@
 body{
     height: 100%;
 }
+.back{
+    background-color:#B8DCB5;
+    height:85vh;
+    margin:30px;
+    border-radius:25px 25px;
+}
 .user{
     border-bottom: 1px solid #716d6d;
     padding: 10px;
     width:95%;
 }
 .user_data{
-    background-color: #f8f9fa!important;
+    background-color: white!important;
     border-top: 5px solid #716d6d;
     max-height: calc(100vh);
 }
-.profile_name{
-    background-color: #f8f9fa!important;
-    width:100%;
-    padding: 10px;
+.profile_name {
+    background-color: white !important;
+    width: 100%;
+    padding: 15px;
+    padding-top:0px;
     border-bottom: 5px solid #716d6d;
+    display: flex;/**/
+    align-items: center;/**/
+}
+#username{
+    padding-left:20px;
 }
 .profile_image{
     width:50px;
@@ -31,6 +43,9 @@ body{
 }
 .chat_section{
     padding-top: 15px;
+    padding-right:15px;
+    height:500px;
+    overflow:scroll;
 }
 .incoming_msg_img {
     display: inline-block;
@@ -65,10 +80,10 @@ body{
 }
 .sent_msg p {
     background: #B8DCB5 none repeat scroll 0 0;
-    border-radius: 6px;
-    font-size: 14px;
+    border-radius: 15px;
+    font-size: 15px;
     margin: 0; color:black;
-    padding: 5px 10px 5px 12px;
+    padding: 8px 10px 8px 12px;
     width:100%;
 }
 .outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
@@ -89,7 +104,7 @@ body{
 .msg_send_btn {
     background: #B8DCB5 none repeat scroll 0 0;
     border: medium none;
-    border-radius: 50%;
+    border-radius: 10px;
     color:black;
     cursor: pointer;
     font-size: 17px;
@@ -97,7 +112,8 @@ body{
     position: absolute;
     right: 0;
     top: 11px;
-    width: 33px;
+    width: 100px;
+    margin-right:20px;
 }
 .messaging { padding: 0 0 50px 0;}
 .msg_history {

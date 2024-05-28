@@ -18,7 +18,7 @@ function NavigationBar(){
               navigate('/JobPage');
               break;
           case '채팅':
-              navigate('/ChatPage');
+              navigate('/ChatList');
               break;
           case '프로필':
               navigate('/Profile');

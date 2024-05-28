@@ -13,7 +13,7 @@ const ViewAllPost = ({ posts }) => {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const response = await axios.get(`http://172.16.100.133:8080/board/view?id=${postId}`);
+                const response = await axios.get(`http://172.16.86.241:8080/board/view?id=${postId}`);
                 setPost(response.data); // 서버에서 가져온 게시물 설정
             } catch (error) {
                 console.error('Error fetching post:', error);

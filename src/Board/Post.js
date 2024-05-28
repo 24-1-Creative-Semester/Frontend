@@ -17,14 +17,14 @@ const Post = ({ post }) => {
     return (
         <div className="postContainer" onClick={handlePostClick}>
             <div className="postInfo">
-                <div className="authorInfo">
+                <div className="nameInfo">
                     <div className="profilePicture">
                         <img className="profileImage" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="프로필 사진" />
                         {/* <img className="profileImage" src={post.profilePicture} alt="프로필 사진" /> */}
 
                     </div>
-                    <div className="pname">{post.author}</div>
-                    <div className="major">{post.major}</div>
+                    <div className="pname">{post.name}</div>
+                    <div className="department">{post.department}</div>
                 </div>
                 <div className="numPeople">
                     <div className="totalPeopleInfo">{post.totalPeople}명</div>

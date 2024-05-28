@@ -6,7 +6,7 @@ import { BiSearch } from "react-icons/bi"; //검색아이콘 넣으려고. react
 import NavigationBar from '../Component/Navigation';
 import axios from 'axios'; // axios를 가져옵니다
 
-const SERVER_URL = "http://172.16.100.133:8080/board";
+const SERVER_URL = "http://172.16.86.241:8080/board";
 
 function BoardPage() {
     const [posts, setPosts] = useState([]);
@@ -23,13 +23,13 @@ function BoardPage() {
                 const response = await axios.get(SERVER_URL);
                 const filteredData = response.data.map(post => ({
                     PostId: post.id,
-                    author: post.author,
-                    major: post.major,
+                    name: post.name,
+                    department: post.department,
                     totalPeople: post.participantsnum,
                     title: post.title,
                     content: post.content,
-                    tags: post.tags,
-                    profilePicture: post.profilePicture
+                    tags: post.tags.map(tag => tag.name),
+                    image: post.image
                 }));
                 setPosts(filteredData);
             } catch (err) {
@@ -82,10 +82,10 @@ function BoardPage() {
                 {/* 태그들 */}
                 <div className="TagLine1">
                     <div className="WritePost" onClick={moveWritePage}>게시글 작성</div>
-                    <div className="tag1" onClick={() => tagFunction('frontend')}>frontend</div>
-                    <div className="tag1" onClick={() => tagFunction('backend')}>backend</div>
-                    <div className="tag1" onClick={() => tagFunction('ai')}>ai</div>
-                    <div className="tag1" onClick={() => tagFunction('design')}>design</div>
+                    <div className="tag1" onClick={() => tagFunction('프론트')}>프론트</div>
+                    <div className="tag1" onClick={() => tagFunction('백엔드')}>백엔드</div>
+                    <div className="tag1" onClick={() => tagFunction('AI')}>AI</div>
+                    <div className="tag1" onClick={() => tagFunction('기획/디자인')}>기획/디자인</div>
                 </div>
                 {/* 검색창 */}
                 <div className="SearchContainer">
@@ -136,13 +136,13 @@ export default BoardPage;
 //                 const response = await axios.get(SERVER_URL);
 //                 const filteredData = response.data.map(post => ({
 //                     PostId: post.PostId,
-//                     author: post.author,
-//                     major: post.major,
+//                     name: post.name,
+//                     department: post.department,
 //                     totalPeople: post.totalPeople,
 //                     title: post.title,
 //                     content: post.content,
 //                     tags: post.tags,
-//                     profilePicture: post.profilePicture
+//                     image: post.image
 //                 }));
 //                 setPosts(filteredData);
 //             } catch (err) {

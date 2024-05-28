@@ -8,7 +8,7 @@ nav{
 section{
     display: inline-block;
 }
-.image{
+.ximage{
     width:150px;
     height:150px;
     object-fit:cover;
@@ -95,4 +95,8 @@ section{
     border-radius:25px 25px;
     text-align:center;
     padding:1% 0 1% 0;
+}
+.content2 {
+    height: 39.9vh; 
+    overflow-y: auto;
 }
