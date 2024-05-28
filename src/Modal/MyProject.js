@@ -1,54 +1,67 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, BrowserRouter } from "react-router-dom";
 import "./Modal.css";
 import axios from "axios";
 
 function MyProject({ setMyProjectModalOpen }) {
-    //모달 끄기
+    // 모달 끄기
     const closeModal = () => {
         setMyProjectModalOpen(false);
     };
 
-    //언어 초기 정의
+    // 프로젝트 초기 정의 (빈 배열)
     const [myProject, setMyProject] = useState([]);
 
-    //프로젝트 불러오기
-    // useEffect(() => {
-    //     axios.get('https://jsonplaceholder.typicode.com/todos/1').then(response=>{
-    //             setMyProject(response.myProject);
-    //         });
-    //     });
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const userId = parseInt(user.id, 10);
+
+    useEffect(() => {
+        async function fetchUserProject() {
+            if (!userId) {
+                console.error("사용자 ID가 없습니다.");
+                return;
+            }
+            try {
+                const response = await axios.get(`http://172.16.86.241:8080/${userId}/achievement`);
+                setMyProject(response.data); // 서버에서 받은 데이터로 myProject 설정
+                setMyProjectModalOpen(true); // 데이터를 받은 후 모달 열기
+            } catch (error) {
+                console.error("사용자 정보를 불러오는데 실패했습니다:", error);
+            }
+        }
+        fetchUserProject();
+    }, [userId, setMyProjectModalOpen]);
 
     const promptProject = () => {
-        const projectInput = window.prompt("프로젝트를 입력하세요: ");
-        if (projectInput != null) {
-            setMyProject((prevState) => [...prevState, projectInput]);
-
-            console.log("프로젝트: ", myProject, projectInput);
-
-            //프로젝트 보내기
-            // axios.post("https://jsonplaceholder.typicode.com/todos/1").then((response) => {
-            //     setMyProject(response.myProject);
-            // });
-        }
-    };
-
-    const promptDeleteProject = (idx) => {
-        const newState = myProject.filter((_, index) => idx !== index);
-        setMyProject(newState);
-        console.log("프로젝트: ", myProject);
-    };
-
-    const promptModifyProject = (idx) => {
-        const modifyProject = window.prompt("프로젝트를 수정해주세요: ");
-        if (modifyProject != null) {
-            const newState = myProject.map((proj, index) => {
-                if (idx !== index) return proj;
-                else return modifyProject;
+        const achievement = prompt("프로젝트를 입력하세요: ");
+        if (achievement != null) {
+            axios.post(`http://172.16.86.241:8080/${userId}/achievement`, { achievement }).then((response) => {
+                setMyProject((prevState) => [
+                    ...prevState,
+                    { achievementID: response.data.id, achievement: achievement },
+                ]);
+                console.log(response.data.id);
             });
-            setMyProject(newState);
+        }
+    };
+
+    const promptModifyProject = (achievementID) => {
+        const achievement = prompt("프로젝트를 수정해주세요: ");
+        if (achievement != null) {
+            axios.put(`http://172.16.86.241:8080/${achievementID}/achievement`, { achievement }).then(() => {
+                setMyProject(
+                    myProject.map((object) =>
+                        object.achievementID === achievementID ? { ...object, achievement: achievement } : object
+                    )
+                );
+            });
         }
         console.log("프로젝트: ", myProject);
+    };
+
+    const promptDeleteProject = (achievementID) => {
+        axios.delete(`http://172.16.86.241:8080/${achievementID}/achievement`).then(() => {
+            setMyProject(myProject.filter((object) => object.achievementID !== achievementID));
+        });
     };
 
     return (
@@ -61,17 +74,17 @@ function MyProject({ setMyProjectModalOpen }) {
                     <div className="title">
                         <h2>프로젝트 이력</h2>
                     </div>
-                    <div className="content2">
-                        {myProject.map((myProject, idx) => (
-                            <p className="barver2" key={myProject}>
-                                <div className="text">{myProject}</div>
-                                <div className="modify" onClick={() => promptModifyProject(idx)}>
+                    <div className="content">
+                        {myProject.map((object) => (
+                            <div className="barver2" key={object.achievementID}>
+                                <div className="text">{object.achievement}</div>
+                                <div className="modify" onClick={() => promptModifyProject(object.achievementID)}>
                                     수정
                                 </div>
-                                <div className="delete" onClick={() => promptDeleteProject(idx)}>
+                                <div className="delete" onClick={() => promptDeleteProject(object.achievementID)}>
                                     삭제
                                 </div>
-                            </p>
+                            </div>
                         ))}
                         <button className="plus" onClick={promptProject}>
                             +

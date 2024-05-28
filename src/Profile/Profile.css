@@ -5,7 +5,7 @@
     border-radius:0 0 10px 10px;
     display:inline-block;
 }
-.image{
+.사진{
     width:160px;
     height:160px;
     object-fit:cover;
@@ -146,9 +146,13 @@
 .title{
     border-bottom:1.5px solid gray;
 }
-.content2{
+.content {
     height: 39.9vh; 
-    overflow-y: auto; 
+    overflow-y: auto;
+}
+.content2 {
+    height: 39.9vh; 
+    overflow-y: auto;
 }
 .bar {
     padding-top:15px;

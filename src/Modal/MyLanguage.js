@@ -1,53 +1,67 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, BrowserRouter } from "react-router-dom";
 import "./Modal.css";
 import axios from "axios";
 
 function MyLanguage({ setMyLanguageModalOpen }) {
-    //모달 끄기
+    // 모달 끄기
     const closeModal = () => {
         setMyLanguageModalOpen(false);
     };
 
-    //언어 초기 정의
+    // 언어 초기 정의 (빈 배열)
     const [myLanguage, setMyLanguage] = useState([]);
 
-    //프로젝트 불러오기
-    // useEffect(() => {
-    //     axios.get('https://jsonplaceholder.typicode.com/todos/1').then(response=>{
-    //             setMyLanguage(response.myLanguage);
-    //         });
-    //     });
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const userId = parseInt(user.id, 10);
+
+    useEffect(() => {
+        async function fetchUserLanguage() {
+            if (!userId) {
+                console.error("사용자 ID가 없습니다.");
+                return;
+            }
+            try {
+                const response = await axios.get(`http://172.16.86.241:8080/${userId}/language`);
+                setMyLanguage(response.data); // 서버에서 받은 데이터로 myLanguage 설정
+                setMyLanguageModalOpen(true); // 데이터를 받은 후 모달 열기
+            } catch (error) {
+                console.error("사용자 정보를 불러오는데 실패했습니다:", error);
+            }
+        }
+        fetchUserLanguage();
+    }, [userId, setMyLanguageModalOpen]);
 
     const promptLanguage = () => {
-        const languageInput = window.prompt("사용언어를 입력하세요: ");
-        if (languageInput != null) {
-            setMyLanguage((prevState) => [...prevState, languageInput]);
-
-            console.log("사용언어: ", myLanguage, languageInput);
-
-            // axios.post("https://jsonplaceholder.typicode.com/todos/1").then((response) => {
-            //     setMyLanguage(response.language);
-            // });
-        }
-    };
-
-    const promptDeleteLanguage = (idx) => {
-        const newState = myLanguage.filter((_, index) => idx !== index);
-        setMyLanguage(newState);
-        console.log("사용언어: ", myLanguage);
-    };
-
-    const promptModifyLanguage = (idx) => {
-        const modifyLanguage = prompt("언어를 수정해주세요: ");
-        if (modifyLanguage != null) {
-            const newState = myLanguage.map((lang, index) => {
-                if (idx !== index) return lang;
-                else return modifyLanguage;
+        const language = prompt("사용언어를 입력하세요: ");
+        if (language != null) {
+            axios.post(`http://172.16.86.241:8080/${userId}/language`, { language }).then((response) => {
+                setMyLanguage((prevState) => [
+                    ...prevState,
+                    { languageID: response.data.id, language: language },
+                ]);
+                console.log(response.data.id);
             });
-            setMyLanguage(newState);
+        }
+    };
+
+    const promptModifyLanguage = (languageID) => {
+        const language = prompt("언어를 수정해주세요: ");
+        if (language != null) {
+            axios.put(`http://172.16.86.241:8080/${languageID}/language`, { language }).then(() => {
+                setMyLanguage(
+                    myLanguage.map((object) =>
+                        object.languageID === languageID ? { ...object, language: language } : object
+                    )
+                );
+            });
         }
         console.log("사용언어: ", myLanguage);
+    };
+
+    const promptDeleteLanguage = (languageID) => {
+        axios.delete(`http://172.16.86.241:8080/${languageID}/language`).then(() => {
+            setMyLanguage(myLanguage.filter((object) => object.languageID !== languageID));
+        });
     };
 
     return (
@@ -60,17 +74,17 @@ function MyLanguage({ setMyLanguageModalOpen }) {
                     <div className="title">
                         <h2>사용언어</h2>
                     </div>
-                    <div className="content2">
-                        {myLanguage.map((myLanguage, idx) => (
-                            <p className="barver2" key={myLanguage}>
-                                <div className="text">{myLanguage}</div>
-                                <div className="modify" onClick={() => promptModifyLanguage(idx)}>
+                    <div className="content">
+                        {myLanguage.map((object) => (
+                            <div className="barver2" key={object.languageID}>
+                                <div className="text">{object.language}</div>
+                                <div className="modify" onClick={() => promptModifyLanguage(object.languageID)}>
                                     수정
                                 </div>
-                                <div className="delete" onClick={() => promptDeleteLanguage(idx)}>
+                                <div className="delete" onClick={() => promptDeleteLanguage(object.languageID)}>
                                     삭제
                                 </div>
-                            </p>
+                            </div>
                         ))}
                         <button className="plus" onClick={promptLanguage}>
                             +

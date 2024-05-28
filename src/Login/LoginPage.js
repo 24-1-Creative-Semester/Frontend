@@ -8,24 +8,29 @@ function LoginPage(){
   const [error, setError] = useState(''); //에러 메시지
   const SERVER_URL = 'http://172.16.86.241:8080/login';
 
-//  로컬스토리지에 user 정보 다 받아와서 저장
-//  const goLogin = async () => {
-//   try {
-//       const response = await axios.post(SERVER_URL, { id, pw }); // 서버로 로그인 요청 보냄
-//       if (response.status === 200) {
-//           // 로그인 성공
-//           const userInfo = response.data; // 서버에서 받은 사용자 정보
-//           localStorage.setItem('user', JSON.stringify(userInfo)); // 사용자 정보 저장
-//           window.location.href = '/BoardPage'; // 로그인 성공하면 BoardPage로 이동
-//       } else {
-//           // 로그인 실패
-//           setError('아이디와 비밀번호를 다시 확인하세요');
-//       }
-//   } catch (err) {
-//       // 에러 처리
-//       setError('An unexpected error occurred');
-//   }
-// };
+ //로컬스토리지에 user 정보 다 받아와서 저장
+ const goLogin = async () => {
+  try {
+      const response = await axios.post(SERVER_URL, { id, pw }); // 서버로 로그인 요청 보냄
+      if (response.status === 200) {
+          // 로그인 성공
+          const userInfo = response.data; // 서버에서 받은 사용자 정보
+          localStorage.setItem('user', JSON.stringify(userInfo)); // 사용자 정보 저장          
+          const storedUserInfo = localStorage.getItem('user');
+          // console.log("Hellooo~~");
+          // console.log('로컬 스토리지에 저장된 사용자 정보:', JSON.parse(storedUserInfo)); // 사용자 정보 콘솔 출력
+          window.location.href = '/BoardPage'; // 로그인 성공하면 BoardPage로 이동
+      } else {
+          // 로그인 실패
+          console.log("Hi");
+          setError('아이디와 비밀번호를 다시 확인하세요');
+      }
+  } catch (err) {
+      // 에러 처리
+      console.log("Hi");
+      setError('An unexpected error occurred');
+  }
+};
 
   // 로컬스토리지 ID만 저장
   // const goLogin = async () => { // 비동기적 로그인 시도
@@ -49,9 +54,9 @@ function LoginPage(){
   // };
 
 
-  const goLogin = async()=>{
-    window.location.href="/BoardPage";
-  };
+  // const goLogin = async()=>{
+  //   window.location.href="/BoardPage";
+  // };
 
   return (
     <div className='margin'>
