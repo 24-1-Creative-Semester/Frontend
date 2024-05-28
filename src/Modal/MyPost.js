@@ -12,20 +12,35 @@ function MyPost({ setMyPostModalOpen }) {
     };
 
     // 초기 상태를 빈 배열로 설정
+<<<<<<< HEAD
     const [myPost, setMyPost] = useState([]);
+=======
+    const [myPost, setMyPost] = useState("");
+>>>>>>> 38435efffc1ed970d58e0ea6a692f408d8a70902
 
     // 사용자 게시물 가져오기
     useEffect(() => {
         async function fetchUserPost() {
+<<<<<<< HEAD
             const user = JSON.parse(localStorage.getItem('user') || '{}');
             const userId = parseInt(user.id, 10);
             if (!userId) {
+=======
+            // const userID = localStorage.getItem("userID"); // 로컬 스토리지에서 userID를 가져옴
+            const userID = 22011661;
+            if (!userID) {
+>>>>>>> 38435efffc1ed970d58e0ea6a692f408d8a70902
                 console.error("사용자 ID가 없습니다.");
                 return; // 사용자 ID가 없으면 함수 종료
             }
             try {
+<<<<<<< HEAD
                 const response = await axios.get(`http://172.16.86.241:8080/board/myBoard`, {
                     params: { userId: userId },
+=======
+                const response = await axios.get(`http://192.168.219.118:8080/board/myBoard`, {
+                    params: { userId: userID },
+>>>>>>> 38435efffc1ed970d58e0ea6a692f408d8a70902
                 });
                 setMyPost(response.data);
                 console.error("사용자 정보를 불러오는데 성공했습니다:");
@@ -36,11 +51,26 @@ function MyPost({ setMyPostModalOpen }) {
         fetchUserPost();
     }, []);
 
+<<<<<<< HEAD
+=======
+    // // 게시물 클릭 핸들러
+    // const handlePostClick = (id) => {
+    //     console.log(id);
+    //     navigate(`/ViewAllPost/${id}`);
+    // };
+
+>>>>>>> 38435efffc1ed970d58e0ea6a692f408d8a70902
     // 게시물 클릭 핸들러
     const handlePostClick = (postID) => {
         console.log(postID);
         // 클릭 시 해당 게시물의 상세 페이지로 이동
+<<<<<<< HEAD
         navigate(`/ViewAllPost/${postID}`);
+=======
+        //navigate(`/board/view?id=${postID}`);
+        navigate(`/ViewAllPost/${postID}`);
+        //navigate(`/ViewAllPost/${encodeURIComponent(postID)}`);
+>>>>>>> 38435efffc1ed970d58e0ea6a692f408d8a70902
     };
 
     // 글 작성 페이지로 이동

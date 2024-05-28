@@ -30,7 +30,11 @@ function BoardPage() {
                     title: post.title,
                     content: post.content,
                     tags: post.tags.map(tag => tag.name),
+<<<<<<< HEAD
                     image: post.imagePath
+=======
+                    image: post.image
+>>>>>>> 38435efffc1ed970d58e0ea6a692f408d8a70902
                 }));
                 setPosts(filteredData);
             } catch (err) {
