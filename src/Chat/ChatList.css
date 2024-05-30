@@ -1,4 +1,36 @@
-.back{
+.ChatList {
+    flex: 1;
+    max-width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    border-right: 1px solid #ccc;
+    overflow-y: auto;
+  }
+  
+  .ChatList h2 {
+    color: #333;
+  }
+  
+  .ChatList ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .ChatList li {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .ChatList li:hover {
+    background-color: #e0e0e0;
+  }
+  
+
+/* .back{
     background-color:#B8DCB5;
     height:85vh;
     margin:30px;
@@ -34,4 +66,4 @@
     margin-right:50px;
     object-fit:cover;
     border-radius:20px;
-}
+} */

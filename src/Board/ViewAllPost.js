@@ -36,12 +36,16 @@ const ViewAllPost = () => {
         // 여기서 스크랩된 상태를 서버에 업데이트
     };
 
+    const handleProfileClick = () => {
+        navigate(`/XProfile/${post.userId}`);
+    };
+
     return (
         <div>
             <NavigationBar />
             <div className="DetailBox">
                 <div className="postInfo">
-                    <div className="authorInfo">
+                    <div className="authorInfo" onClick={handleProfileClick}>
                         <div className="profilePicture">
                             <img className="profileImage" src={post.imagePath} alt="프로필 사진" />
                         </div>

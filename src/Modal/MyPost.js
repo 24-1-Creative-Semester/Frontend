@@ -28,7 +28,7 @@ function MyPost({ setMyPostModalOpen }) {
                     params: { userId: userId },
                 });
                 setMyPost(response.data);
-                console.error("사용자 정보를 불러오는데 성공했습니다:");
+                console.log("사용자 정보를 불러오는데 성공했습니다:");
             } catch (error) {
                 console.error("사용자 정보를 불러오는데 실패했습니다:", error);
             }
@@ -48,6 +48,20 @@ function MyPost({ setMyPostModalOpen }) {
         window.location.href = "/WritePage";
     };
 
+    const goEdit = (postID) => {
+        navigate(`/EditPost/${postID}`);
+    };
+
+    // 게시물 삭제 핸들러
+    const handleDeletePost = async (postID) => {
+        try {
+            await axios.delete(`http://172.16.86.241:8080/board/delete/${postID}`);
+            setMyPost((prevState) => prevState.filter((post) => post.id !== postID));
+        } catch (error) {
+            console.error("게시물 삭제에 실패했습니다:", error);
+        }
+    };
+
     return (
         <div className="backModal">
             <div className="Modal">
@@ -61,9 +75,17 @@ function MyPost({ setMyPostModalOpen }) {
                     <div className="content">
                         {myPost.length > 0 ? (
                             myPost.map((object) => (
-                                <p className="bar" key={object.id} onClick={() => handlePostClick(object.id)}>
-                                    {object.title}
-                                </p>
+                                <div className="barver2" key={object.id}>
+                                    <div className="text" onClick={() => handlePostClick(object.id)}>
+                                        {object.title}
+                                    </div>
+                                    <div className="modify" onClick={() => goEdit(object.id)}>
+                                        수정
+                                    </div>
+                                    <div className="delete" onClick={() => handleDeletePost(object.id)}>
+                                        삭제
+                                    </div>
+                                </div>
                             ))
                         ) : (
                             <p>게시물이 없습니다.</p>

@@ -31,6 +31,7 @@ function MyProject({ setMyProjectModalOpen }) {
         fetchUserProject();
     }, [userId, setMyProjectModalOpen]);
 
+    //사용언어 추가 (language 주기, 백에서 처리, myLanguage 정보 변경)
     const promptProject = () => {
         const achievement = prompt("프로젝트를 입력하세요: ");
         if (achievement != null) {
