@@ -22,7 +22,7 @@ const JobPage = () => {
 
     useEffect(() => {
         // 실제 API 호출은 주석 처리
-        axios.get("http://172.16.86.241:8080/api/job-postings")
+        axios.get("http://192.168.45.51:8080/api/job-postings")
           .then(response => {
             console.log(response.data);
             setJobs(response.data);

@@ -1,51 +1,59 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Modal.css"; // Assuming you have a CSS file for styling
 
 function MyPost({ setMyPostModalOpen }) {
     const navigate = useNavigate();
 
-    // 모달 끄기 함수
     const closeModal = () => {
         setMyPostModalOpen(false);
     };
 
-    // 초기 상태를 빈 배열로 설정
     const [myPost, setMyPost] = useState([]);
 
-    // 사용자 게시물 가져오기
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const userID = parseInt(user.id, 10);
+
     useEffect(() => {
         async function fetchUserPost() {
-            const user = JSON.parse(localStorage.getItem('user') || '{}');
-            const userId = parseInt(user.id, 10);
-            if (!userId) {
+            if (!userID) {
                 console.error("사용자 ID가 없습니다.");
-                return; // 사용자 ID가 없으면 함수 종료
+                return;
             }
             try {
-                const response = await axios.get(`http://172.16.86.241:8080/board/myBoard`, {
-                    params: { userId: userId },
+                const response = await axios.get(`http://192.168.45.51:8080/board/myBoard`, {
+                    params: { userId: userID },
                 });
-                setMyPost(response.data);
-                console.error("사용자 정보를 불러오는데 성공했습니다:");
+                setMyPost(Array.isArray(response.data) ? response.data : []);
+                console.log("사용자 정보를 불러오는데 성공했습니다:");
             } catch (error) {
-                console.error("사용자 정보를 불러오는데 실패했습니다:", error);
+                console.error("사용자 정보를 불러오는데 실패했습니다:", error.response || error);
             }
         }
         fetchUserPost();
-    }, []);
+    }, [userID]);
 
-    // 게시물 클릭 핸들러
+    const goEdit = (postID) => {
+        navigate(`/EditPost/${postID}`);
+    };
+
     const handlePostClick = (postID) => {
         console.log(postID);
-        // 클릭 시 해당 게시물의 상세 페이지로 이동
         navigate(`/ViewAllPost/${postID}`);
     };
 
-    // 글 작성 페이지로 이동
     const moveWritePage = () => {
         window.location.href = "/WritePage";
+    };
+
+    const promptDeletePost = async (postID) => {
+        setMyPost(myPost.filter((object) => object.id !== postID));
+        try {
+            await axios.delete(`http://192.168.45.51:8080/board/delete/${postID}`);
+            console.log("삭제");
+        } catch (error) {
+            console.error("게시물 삭제 실패:", error.response || error);
+        }
     };
 
     return (
@@ -61,9 +69,17 @@ function MyPost({ setMyPostModalOpen }) {
                     <div className="content">
                         {myPost.length > 0 ? (
                             myPost.map((object) => (
-                                <p className="bar" key={object.id} onClick={() => handlePostClick(object.id)}>
-                                    {object.title}
-                                </p>
+                                <div className="barver2" key={object.id}>
+                                    <div className="text" id="text2" onClick={() => handlePostClick(object.id)}>
+                                        {object.title}
+                                    </div>
+                                    <div className="modify" onClick={() => goEdit(object.id)}>
+                                        수정
+                                    </div>
+                                    <div className="delete" onClick={() => promptDeletePost(object.id)}>
+                                        삭제
+                                    </div>
+                                </div>
                             ))
                         ) : (
                             <p>게시물이 없습니다.</p>

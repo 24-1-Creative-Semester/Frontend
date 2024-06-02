@@ -18,7 +18,7 @@ function XProject({ setModalOpen, xUserID }) {
                 return;
             }
             try {
-                const response = await axios.get(`http://192.168.45.51:8080/${xUserID}/achievement`);
+                const response = await axios.get(`http://192.168.45.51:8080/${xUserID}/interest`);
                 console.log(response.data);
                 // 받아온 데이터가 배열이라고 가정하고 설정
                 setProject(response.data);
@@ -36,13 +36,13 @@ function XProject({ setModalOpen, xUserID }) {
                     X
                 </button>
                 <div className="ModalBody">
-                    <div className="achievement">
-                        <h2>프로젝트 이력</h2>
+                    <div className="interest">
+                        <h2>관심분야</h2>
                     </div>
                     <div className="content2">
                         {project.map((project) => (
                             <p id="bar" project={project} key={project.ID}>
-                                {project.achievement}
+                                {project.interest}
                             </p>
                         ))}
                     </div>

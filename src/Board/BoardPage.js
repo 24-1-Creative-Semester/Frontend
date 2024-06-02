@@ -6,7 +6,7 @@ import { BiSearch } from "react-icons/bi"; //검색아이콘 넣으려고. react
 import NavigationBar from '../Component/Navigation';
 import axios from 'axios'; // axios를 가져옵니다
 
-const SERVER_URL = "http://172.16.86.241:8080/board";
+const SERVER_URL = "http://192.168.45.51:8080/board";
 
 function BoardPage() {
     const [posts, setPosts] = useState([]);
@@ -30,7 +30,7 @@ function BoardPage() {
                     title: post.title,
                     content: post.content,
                     tags: post.tags.map(tag => tag.name),
-                    image: post.imagePath
+                    image: post.image_path
                 }));
                 setPosts(filteredData);
             } catch (err) {

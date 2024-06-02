@@ -45,7 +45,7 @@ function Profile() {
             setImage(user.image);
             setProfileId(profileId);
 
-            const response = await axios.get(`http://172.16.86.241:8080/${profileId}/imagereturn`);
+            const response = await axios.get(`http://192.168.45.51:8080/${profileId}/imagereturn`);
             console.log("GET 요청");
             console.log(response.data);
             const imageUrl = response.data;
@@ -73,7 +73,7 @@ function Profile() {
             formData.append("file", file);
 
             try {
-                const result = await axios.post(`http://172.16.86.241:8080/${profileId}/imageUpload`, formData, {
+                const result = await axios.post(`http://192.168.45.51:8080/${profileId}/imageUpload`, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },

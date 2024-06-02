@@ -77,7 +77,7 @@ function WritePage({ setPosts, posts }) {
         };
 
         try {
-            const response = await axios.post(`http://172.16.86.241:8080/board/writepro/${userId}`, newPost);
+            const response = await axios.post(`http://192.168.45.51:8080/board/writepro/${userId}`, newPost);
             const createdPost = response.data;
             setPosts([...posts, createdPost]);
             navigate('/BoardPage');

@@ -21,7 +21,7 @@ function MyField({ setMyFieldModalOpen }) {
                 return;
             }
             try {
-                const response = await axios.get(`http://172.16.86.241:8080/${userId}/interest`);
+                const response = await axios.get(`http://192.168.45.51:8080/${userId}/interest`);
                 setMyField(response.data); // 서버에서 받은 데이터로 myField 설정
                 setMyFieldModalOpen(true); // 데이터를 받은 후 모달 열기
             } catch (error) {
@@ -34,7 +34,7 @@ function MyField({ setMyFieldModalOpen }) {
     const promptField = () => {
         const interest = prompt("관심분야를 입력하세요: ");
         if (interest != null) {
-            axios.post(`http://172.16.86.241:8080/${userId}/interest`, { interest }).then((response) => {
+            axios.post(`http://192.168.45.51:8080/${userId}/interest`, { interest }).then((response) => {
                 setMyField((prevState) => [
                     ...prevState,
                     { id: response.data.id, interest: interest },
@@ -47,7 +47,7 @@ function MyField({ setMyFieldModalOpen }) {
     const promptModifyField = (interestID) => {
         const interest = prompt("관심분야를 수정해주세요: ");
         if (interest != null) {
-            axios.put(`http://172.16.86.241:8080/${interestID}/interest`, { interest }).then(() => {
+            axios.put(`http://192.168.45.51:8080/${interestID}/interest`, { interest }).then(() => {
                 setMyField(
                     myField.map((object) =>
                         object.id === interestID ? { ...object, interest: interest } : object
@@ -59,7 +59,7 @@ function MyField({ setMyFieldModalOpen }) {
     };
 
     const promptDeleteField = (interestID) => {
-        axios.delete(`http://172.16.86.241:8080/${interestID}/interest`).then(() => {
+        axios.delete(`http://192.168.45.51:8080/${interestID}/interest`).then(() => {
             setMyField(myField.filter((object) => object.id !== interestID));
         });
     };

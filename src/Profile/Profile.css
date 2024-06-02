@@ -25,7 +25,7 @@
     align-items: center;
     text-align:center;
 }
-.내가올린게시물{
+.내가올린게시물,.저장한글,.사용언어,.프로젝트이력,.관심분야{
     margin:auto;
     margin-top:2%;
     width:70%;
@@ -38,58 +38,14 @@
 .내가올린게시물:hover {
     font-weight:Bold; /*커서 올리면 글자 진해짐*/
 }
-.저장한글{
-    margin:auto;
-    margin-top:30px;
-    width:70%;
-    height:5%;
-    background-color:#B8DCB5;
-    border-radius:25px 25px;
-    text-align:center;
-    padding:1% 0 1% 0;
-    cursor: pointer;
-}
 .저장한글:hover {
     font-weight:Bold; /*커서 올리면 글자 진해짐*/
-}
-.사용언어{
-    margin:auto;
-    margin-top:30px;
-    width:70%;
-    height:5%;
-    padding:1% 0 1% 0;
-    background-color:#B8DCB5;
-    border-radius:25px 25px;
-    text-align:center;
-    cursor: pointer;
 }
 .사용언어:hover {
     font-weight:Bold; /*커서 올리면 글자 진해짐*/
 }
-.프로젝트이력{
-    margin:auto;
-    margin-top:30px;
-    width:70%;
-    height:5%;
-    background-color:#B8DCB5;
-    border-radius:25px 25px;
-    text-align:center;
-    padding:1% 0 1% 0;
-    cursor: pointer;
-}
 .프로젝트이력:hover {
     font-weight:Bold; /*커서 올리면 글자 진해짐*/
-}
-.관심분야{
-    margin:auto;
-    margin-top:30px;
-    width:70%;
-    height:5%;
-    background-color:#B8DCB5;
-    border-radius:25px 25px;
-    text-align:center;
-    padding:1% 0 1% 0;
-    cursor: pointer;
 }
 .관심분야:hover {
     font-weight:Bold; /*커서 올리면 글자 진해짐*/

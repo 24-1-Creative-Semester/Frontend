@@ -21,7 +21,7 @@ function MyProject({ setMyProjectModalOpen }) {
                 return;
             }
             try {
-                const response = await axios.get(`http://172.16.86.241:8080/${userId}/achievement`);
+                const response = await axios.get(`http://192.168.45.51:8080/${userId}/achievement`);
                 setMyProject(response.data); // 서버에서 받은 데이터로 myProject 설정
                 setMyProjectModalOpen(true); // 데이터를 받은 후 모달 열기
             } catch (error) {
@@ -31,10 +31,11 @@ function MyProject({ setMyProjectModalOpen }) {
         fetchUserProject();
     }, [userId, setMyProjectModalOpen]);
 
+    //사용언어 추가 (language 주기, 백에서 처리, myLanguage 정보 변경)
     const promptProject = () => {
         const achievement = prompt("프로젝트를 입력하세요: ");
         if (achievement != null) {
-            axios.post(`http://172.16.86.241:8080/${userId}/achievement`, { achievement }).then((response) => {
+            axios.post(`http://192.168.45.51:8080/${userId}/achievement`, { achievement }).then((response) => {
                 setMyProject((prevState) => [
                     ...prevState,
                     { achievementID: response.data.id, achievement: achievement },
@@ -47,7 +48,7 @@ function MyProject({ setMyProjectModalOpen }) {
     const promptModifyProject = (achievementID) => {
         const achievement = prompt("프로젝트를 수정해주세요: ");
         if (achievement != null) {
-            axios.put(`http://172.16.86.241:8080/${achievementID}/achievement`, { achievement }).then(() => {
+            axios.put(`http://192.168.45.51:8080/${achievementID}/achievement`, { achievement }).then(() => {
                 setMyProject(
                     myProject.map((object) =>
                         object.achievementID === achievementID ? { ...object, achievement: achievement } : object
@@ -59,7 +60,7 @@ function MyProject({ setMyProjectModalOpen }) {
     };
 
     const promptDeleteProject = (achievementID) => {
-        axios.delete(`http://172.16.86.241:8080/${achievementID}/achievement`).then(() => {
+        axios.delete(`http://192.168.45.51:8080/${achievementID}/achievement`).then(() => {
             setMyProject(myProject.filter((object) => object.achievementID !== achievementID));
         });
     };

@@ -11,6 +11,7 @@ import EditPost from './Board/EditPost';
 import ChatPage from './Chat/ChatPage';
 import ChatList from './Chat/ChatList';
 import Profile from './Profile/Profile';
+import XProfile from './XProfile/XProfile';
 import "./App.css";
 
 function App() {
@@ -30,9 +31,11 @@ function App() {
           <Route path="/WritePage" element={<WritePage posts={posts} setPosts={setPosts} />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/ChatList" element={<ChatList />} />
+          <Route path="/ChatPage/:chatRoomID" element={<ChatPage />} />
           <Route path="/JobPage" element={<JobPage />} />
           <Route path="/ViewAllPost/:postId" element={<ViewAllPost posts={posts} />} />
           <Route path="/EditPost/:postId" element={<EditPost posts={posts} setPosts={setPosts} />} />
+          <Route path="/XProfile/:xUserID" element={<XProfile />} />
         </Routes>
       </div>
     </Router>

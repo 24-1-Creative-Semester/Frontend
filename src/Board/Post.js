@@ -12,6 +12,7 @@ const Post = ({ post }) => {
     const handlePostClick = () => {
         // 클릭 시 해당 게시물의 상세 페이지로 이동
         navigate(`/ViewAllPost/${post.PostId}`); // 예를 들어, 각 게시물의 ID를 이용하여 동적 URL을 생성할 수 있습니다.
+        console.log(post.image);
     };
 
     return (
@@ -19,7 +20,7 @@ const Post = ({ post }) => {
             <div className="postInfo">
                 <div className="nameInfo">
                     <div className="profilePicture">
-                        <img className="profileImage" src={post.image} alt="프로필 사진" /> 
+                        <img className="profileImage" src={post.image} alt="프로필 사진" />
                     </div>
                     <div className="pname">{post.name}</div>
                     <div className="department">{post.department}</div>

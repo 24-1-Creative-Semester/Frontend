@@ -1,32 +1,51 @@
 import React, { useState, useEffect } from "react";
 import "./ChatPage.css";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import NavigationBar from "../Component/Navigation";
 import axios from "axios"; // axios 라이브러리를 임포트합니다.
+import { useLocation } from "react-router-dom";
 
 const ChatPage = () => {
-    let { chatID } = useParams();
-    const [username, setUsername] = useState("");
-    const [chatRoomId, setRoomNum] = useState({ chatID });
-    const [messages, setMessages] = useState([]);
+    const location = useLocation();
+    const { chatRoomId, chatRoomName, ximage, xuserId } = location.state || {};
+    console.log("Chat Room ID:", chatRoomId);  // Chat Room ID 확인
+
+    const [messages, setMessages] = useState([]); // 초기 상태를 빈 배열로 설정
     const [inputMessage, setInputMessage] = useState("");
 
+    const user = JSON.parse(localStorage.getItem("user"));
+    const userID = parseInt(user.id, 10);
+    const username = userID;
+
+    const xusername = parseInt(xuserId, 10);
+
     useEffect(() => {
-        const usernameInput = "사용자명"; // 받아온 사용자명
-        const roomNumInput = "채팅방번호"; // 받아온 채팅방 번호
-        setUsername(usernameInput);
-        setRoomNum(roomNumInput);
+        // 채팅방의 모든 메시지를 로드합니다.
+        const fetchMessages = async () => {
+            try {
+                const response = await axios.get(`http://192.168.45.51:8080/chatroom/${chatRoomId}/messages`);
+                console.log("Messages:", response.data); // 응답 데이터 확인
+                setMessages(Array.isArray(response.data) ? response.data : []); // 응답 데이터가 배열이 아닌 경우 빈 배열로 설정
+            } catch (error) {
+                console.error("Failed to load messages:", error);
+                setMessages([]); // 오류가 발생한 경우 빈 배열로 설정
+            }
+        };
 
-        // const eventSource = new EventSource(`http://localhost:8080/chat/chatRoomId/${roomNumInput}`);
-        // eventSource.onmessage = (event) => {
-        //   const data = JSON.parse(event.data);
-        //   setMessages(prevMessages => [...prevMessages, data]);
-        // }
+        if (chatRoomId) {
+            fetchMessages();
 
-        // return () => {
-        //   eventSource.close();
-        // };
-    }, []);
+            const eventSource = new EventSource(`http://192.168.45.51:8080/chatroom/${chatRoomId}/messages`);
+            eventSource.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                setMessages((prevMessages) => [...prevMessages, data]);
+            };
+
+            return () => {
+                eventSource.close();
+            };
+        }
+    }, [chatRoomId]);
 
     const formatDate = (createdAt) => {
         const date = new Date(createdAt);
@@ -41,7 +60,7 @@ const ChatPage = () => {
 
     const renderMessage = (data) => {
         return (
-            <div className={data.sender === username ? "outgoing_msg" : "received_msg"} key={data.createdAt}>
+            <div className={data.sender === username ? "outgoing_msg" : "received_msg"} key={data.id}>
                 <div className={data.sender === username ? "sent_msg" : "received_withd_msg"}>
                     <p>{data.msg}</p>
                     <span className="time_date">
@@ -52,31 +71,25 @@ const ChatPage = () => {
         );
     };
 
-    const sendMessage = () => {
+    const sendMessage = async () => {
         const messageContent = inputMessage.trim();
 
         if (messageContent !== "") {
-            const newMessage = {
-                sender: username,
-                msg: messageContent,
-                createdAt: new Date().toISOString(), // 현재 시간을 ISO 형식으로 저장
-            };
+            try {
+                // 서버로 메시지를 전송하는 코드
+                const response = await axios.post("http://192.168.45.51:8080/chat", {
+                    chatRoomId: chatRoomId,
+                    msg: messageContent,
+                    sender: username,
+                    receiver: xusername,
+                    createdAt: new Date().toISOString(),
+                });
 
-            // 서버로 메시지를 전송하는 코드
-            /*
-        axios.post('서버의 API 엔드포인트', newMessage)
-        .then(response => {
-          console.log(response.data); // 서버로부터 받은 응답 데이터 처리
-        })
-        .catch(error => {
-          console.error('Error sending message:', error); // 에러 처리
-        });
-      */
-
-            setMessages((prevMessages) => [...prevMessages, newMessage]);
-
-            // 메시지 전송 후 입력란 초기화
-            setInputMessage("");
+                console.log(response.data); // 서버로부터 받은 응답 데이터 처리
+                setInputMessage(""); // 메시지 전송 후 입력란 초기화
+            } catch (error) {
+                console.error("Error sending message:", error); // 에러 처리
+            }
         } else {
             alert("메시지를 입력하세요.");
         }
@@ -97,15 +110,12 @@ const ChatPage = () => {
                         <div id="user_chat_data" className="user_chat_data">
                             <div className="profile_name">
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                <img
-                                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                                    className="profile_image"
-                                />
+                                <img src={ximage} className="profile_image" alt="profile" />
                                 &nbsp;&nbsp;
-                                <span id="username">{username}</span>
+                                <span id="username">{chatRoomName}</span>
                             </div>
                             <div className="container-fluid chat_section">
-                                {messages.map((message) => renderMessage(message))}
+                                {Array.isArray(messages) && messages.map((message) => renderMessage(message))}
                             </div>
                             <div className="type_msg">
                                 <div className="input_msg_write">
@@ -133,123 +143,3 @@ const ChatPage = () => {
 };
 
 export default ChatPage;
-
-
-// import React, { useState, useEffect } from 'react';
-// import './ChatPage.css';
-// import NavigationBar from '../Component/Navigation';
-// import axios from 'axios';
-
-// const ChatPage = () => {
-//   const [username, setUsername] = useState('');
-//   const [chatRoomId, setRoomNum] = useState('');
-//   const [messages, setMessages] = useState([]);
-//   const [inputMessage, setInputMessage] = useState('');
-
-//   useEffect(() => {
-//     const usernameInput = "사용자명"; // 받아온 사용자명
-//     const roomNumInput = "채팅방번호"; // 받아온 채팅방 번호
-//     setUsername(usernameInput);
-//     setRoomNum(roomNumInput);
-
-//     // const eventSource = new EventSource(`http://localhost:8080/chat/chatRoomId/${roomNumInput}`);
-//     // eventSource.onmessage = (event) => {
-//     //   const data = JSON.parse(event.data);
-//     //   setMessages(prevMessages => [...prevMessages, data]);
-//     // }
-
-//     // return () => {
-//     //   eventSource.close();
-//     // };
-//   }, []);
-
-//   const formatDate = (createdAt) => {
-//     const date = new Date(createdAt);
-//     const formattedDate = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', month: 'short', day: 'numeric' });
-//     return formattedDate;
-//   };
-
-//   const renderMessage = (data) => {
-//     return (
-//       <div className={data.sender === username ? "outgoing_msg" : "received_msg"} key={data.createdAt}>
-//         <div className={data.sender === username ? "sent_msg" : "received_withd_msg"}>
-//           <p>{data.msg}</p>
-//           <span className="time_date">{formatDate(data.createdAt)} / <b>{data.sender}</b></span>
-//         </div>
-//       </div>
-//     );
-//   };
-
-//   const sendMessage = () => {
-//     const messageContent = inputMessage.trim();
-  
-//     if (messageContent !== "") {
-//       const newMessage = {
-//         sender: username,
-//         msg: messageContent,
-//         createdAt: new Date().toISOString() // 현재 시간을 ISO 형식으로 저장
-//       };
-
-//       // 서버로 메시지를 전송하는 코드
-//       /*
-//       axios.post('서버의 API 엔드포인트', newMessage)
-//         .then(response => {
-//           console.log(response.data); // 서버로부터 받은 응답 데이터 처리
-//         })
-//         .catch(error => {
-//           console.error('Error sending message:', error); // 에러 처리
-//         });
-//       */
-
-//       setMessages(prevMessages => [...prevMessages, newMessage]);
-
-//       // 메시지 전송 후 입력란 초기화
-//       setInputMessage("");
-//     } else {
-//       alert("메시지를 입력하세요.");
-//     }
-//   };
-
-//   const handleKeyPress = (e) => {
-//     if (e.key === 'Enter') {
-//       sendMessage();
-//     }
-//   };
-
-//   return (
-//     <div className="container-fluid">
-//       <NavigationBar />
-//       <div className="row">
-//         <div className="col-sm-12">
-//           <div id="user_chat_data" className="user_chat_data">
-//             <div className="profile_name">
-//               &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" className="profile_image" /> &nbsp;&nbsp;
-//               <span id="username">{username}</span>
-//             </div>
-//             <div className="container-fluid chat_section">
-//               {messages.map(message => renderMessage(message))}
-//             </div>
-//             <div className="type_msg">
-//               <div className="input_msg_write">
-//                 <input 
-//                   id="chat-outgoing-msg" 
-//                   type="text" 
-//                   className="write_msg" 
-//                   placeholder="Type a message" 
-//                   value={inputMessage}
-//                   onChange={(e) => setInputMessage(e.target.value)}
-//                   onKeyPress={handleKeyPress} 
-//                 />
-//                 <button className="msg_send_btn" type="button" onClick={sendMessage}>
-//                   <i className="fa fa-paper-plane" aria-hidden="true"></i>
-//                 </button>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ChatPage;

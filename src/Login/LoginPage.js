@@ -6,7 +6,7 @@ function LoginPage(){
   const [id, setId] = useState(''); //아이디 상태 관리
   const [pw, setPassword] = useState(''); //비밀번호
   const [error, setError] = useState(''); //에러 메시지
-  const SERVER_URL = 'http://172.16.86.241:8080/login';
+  const SERVER_URL = 'http://192.168.45.51:8080/login';
 
  //로컬스토리지에 user 정보 다 받아와서 저장
  const goLogin = async () => {

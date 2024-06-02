@@ -13,7 +13,7 @@ const ViewAllPost = () => {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const response = await axios.get(`http://172.16.86.241:8080/board/view?id=${postId}`);
+                const response = await axios.get(`http://192.168.45.51:8080/board/view?id=${postId}`);
                 setPost(response.data); // 서버에서 가져온 게시물 설정
             } catch (error) {
                 console.error('Error fetching post:', error);
@@ -31,9 +31,21 @@ const ViewAllPost = () => {
         navigate('/BoardPage');
     };
 
-    const handleScrap = () => {
+    const handleScrap = async () => {
+        // 이 부분 수정
         setIsScrapped(true);
-        // 여기서 스크랩된 상태를 서버에 업데이트
+        try {
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            const userId = parseInt(user.id, 10);
+            await axios.post(`http://192.168.45.51:8080/board/scrap/${userId}/${postId}`, { userId, postId }); // 이 부분 수정
+        } catch (error) {
+            console.error("Error scrapping post:", error);
+            setIsScrapped(false); // 에러 발생 시 스크랩 상태 되돌리기
+        }
+    };
+
+    const handleProfileClick = () => {
+        navigate(`/XProfile/${post.userId}`);
     };
 
     return (
@@ -41,11 +53,11 @@ const ViewAllPost = () => {
             <NavigationBar />
             <div className="DetailBox">
                 <div className="postInfo">
-                    <div className="authorInfo">
+                    <div className="authorInfo" onClick={handleProfileClick}>
                         <div className="profilePicture">
-                            <img className="profileImage" src={post.imagePath} alt="프로필 사진" />
+                            <img className="profileImage" src={post.image_path} alt="프로필 사진" />
                         </div>
-                        <div className="name">{post.name} / </div>
+                        <div className="name">{post.name} </div>
                         <div className="major">{post.department}  /  {post.tags && post.tags.map(tag => tag.name).join(', ')}</div>
                     </div>
                     <div className="numPeople">

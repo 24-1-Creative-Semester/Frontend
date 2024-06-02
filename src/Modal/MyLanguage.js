@@ -21,7 +21,7 @@ function MyLanguage({ setMyLanguageModalOpen }) {
                 return;
             }
             try {
-                const response = await axios.get(`http://172.16.86.241:8080/${userId}/language`);
+                const response = await axios.get(`http://192.168.45.51:8080/${userId}/language`);
                 setMyLanguage(response.data); // 서버에서 받은 데이터로 myLanguage 설정
                 setMyLanguageModalOpen(true); // 데이터를 받은 후 모달 열기
             } catch (error) {
@@ -34,7 +34,7 @@ function MyLanguage({ setMyLanguageModalOpen }) {
     const promptLanguage = () => {
         const language = prompt("사용언어를 입력하세요: ");
         if (language != null) {
-            axios.post(`http://172.16.86.241:8080/${userId}/language`, { language }).then((response) => {
+            axios.post(`http://192.168.45.51:8080/${userId}/language`, { language }).then((response) => {
                 setMyLanguage((prevState) => [
                     ...prevState,
                     { languageID: response.data.id, language: language },
@@ -47,7 +47,7 @@ function MyLanguage({ setMyLanguageModalOpen }) {
     const promptModifyLanguage = (languageID) => {
         const language = prompt("언어를 수정해주세요: ");
         if (language != null) {
-            axios.put(`http://172.16.86.241:8080/${languageID}/language`, { language }).then(() => {
+            axios.put(`http://192.168.45.51:8080/${languageID}/language`, { language }).then(() => {
                 setMyLanguage(
                     myLanguage.map((object) =>
                         object.languageID === languageID ? { ...object, language: language } : object
@@ -59,7 +59,7 @@ function MyLanguage({ setMyLanguageModalOpen }) {
     };
 
     const promptDeleteLanguage = (languageID) => {
-        axios.delete(`http://172.16.86.241:8080/${languageID}/language`).then(() => {
+        axios.delete(`http://192.168.45.51:8080/${languageID}/language`).then(() => {
             setMyLanguage(myLanguage.filter((object) => object.languageID !== languageID));
         });
     };
