@@ -1,0 +1,30 @@
+.DetailBox{
+    background-color: #B8DCB5;
+    display:flex;
+    text-align:center;
+    height: 80vh;
+    margin: 0 20vh 0 20vh;
+    flex-direction: column;
+    font-size:15pt;
+    font-weight:300;
+}
+.contentBoxLarge{
+    margin:0 2% 2% 2%;
+    background-color: #fff;
+    height:50vh; width:92%;
+    padding:10px;
+}
+.ScrapButton{
+    padding: 8px 100px;
+    border: 1px solid #E6E6E6;
+    background-color: #FFF; 
+    border-radius: 20px;
+    font-size: 12pt;
+}
+.CancelButton{
+    padding: 8px 100px;
+    border: 1px solid #E6E6E6;
+    background-color: #FFF; 
+    border-radius: 20px;
+    font-size: 12pt;
+}

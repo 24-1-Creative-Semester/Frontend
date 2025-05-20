@@ -1,0 +1,187 @@
+.postContainer{
+    background-color: #B8DCB5;
+    display: flex;
+    height: 50vh;
+    margin: 20px 50px 20px 50px;
+    flex-direction: column;
+}
+.postContainer:hover{
+  cursor: pointer;
+}
+.postInxfo {
+  align-items: center;
+  display: flex;
+  margin: 10px 2% 10px 2%;
+}
+.authorInfo{
+    display: flex;
+    justify-content: flex-start;
+    margin-right:auto;
+}
+.profilePicture {
+  width: 30px; /* 프로필 사진의 너비 */
+  height: 30px; /* 프로필 사진의 높이 */
+  border-radius: 50%; /* 원형으로 만들기 위한  경계 반지름 */
+  overflow: hidden; /* 넘치는 부분을 자르기 위해 */
+  margin-right: 10px; /* 프로필 사진과 이름 사이의 간격 조절 */
+  float: left; /* 이름과 프로필 사진이 한 줄에 표시되도록 */
+}
+.profileImage {
+  width: 100%; /* 이미지가 부모 요소에 꽉 차도록 */
+  height: auto; /* 이미지의 비율을 유지하여 자동 조정 */
+}
+.pname{
+  font-size : 20px;
+  font-weight:bold;
+}
+.major{
+  margin-top:3px;
+  font-size : 17px;
+  margin-left:20px;
+}
+.numPeople{
+  display: flex;
+  justify-content: flex-end;
+  margin-top:5px;
+  margin-bottom:5px;
+}
+.nowPeopleInfo{
+  font-size : 17px;
+  margin-left:20px;
+}
+.totalPeopleInfo{
+  font-size : 17px;
+}
+.titleBox {
+  text-align:center;
+  align-items: center;
+  border-radius: 20px;
+  margin:0 2% 0 2%;
+  background-color: #ffffcc;
+  height:4vh; width:70%;
+  margin-bottom:2%;
+  font-weight: 600;
+}
+
+.ptitle p {
+  margin: 0;
+  padding:1%;
+}
+
+.contentBox {
+    margin:0 2% 2% 2%;
+    background-color: #fff;
+    height:32vh; width:92%;
+    padding:10px;
+}
+
+.contents p {
+    margin: 0;
+}
+
+/*.rectangle-div {
+    width: 1357px;
+    height: 533px;
+    position: relative;
+    background-color: #B8DCB5;
+    display: none;
+    max-width: 100%;
+    border-radius: 20px;
+  }
+  .div11 {
+    position: absolute;
+    top: 11px;
+    left: 1105px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 217px;
+    height: 39px;
+    z-index: 1;
+  }
+  .dalle-create-an-abstract-a {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 50%;
+    background-color: #fff;
+    width: 62px;
+    z-index: 1;
+  }
+  .div12 {
+    height: 36px;
+    width: 87px;
+    position: relative;
+    justify-content: center;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .div12,
+  .div13,
+  .members-frame {
+    display: flex;
+    align-items: center;
+  }
+  .div13 {
+    height: 48px;
+    flex: 1;
+    position: relative;
+    font-size: var(--font-size-xl);
+    justify-content: center;
+    z-index: 1;
+    margin-left: -66px;
+  }
+  .members-frame {
+    position: absolute;
+    top: 7px;
+    left: 52px;
+    width: 172px;
+    flex-direction: row;
+    justify-content: flex-start;
+    font-size: var(--font-size-6xl);
+  }
+  .name-and-dep-frame {
+    align-self: stretch;
+    height: 61px;
+    position: relative;
+  }
+  .property-variant {
+    align-self: stretch;
+    flex: 1;
+    position: relative;
+    background-color: #FFF;
+    z-index: 1;
+  }
+  .section {
+    align-self: stretch;
+    flex: 1;
+    background-color: #B8DCB5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: var(--padding-11xl) var(--padding-lg) var(--padding-2xl) var(--padding-mid);
+    box-sizing: border-box;
+    gap: var(--gap-lg);
+    max-width: 100%;
+    text-align: center;
+    font-size: var(--font-size-xl);
+    color: black;
+    font-family: var(--font-acme);
+  }
+  @media screen and (max-width: 675px) {
+    .section {
+      padding-top: var(--padding-xl);
+      padding-bottom: var(--padding-xl);
+      box-sizing: border-box;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    .div11 {
+      font-size: var(--font-size-base);
+    }
+    .div12 {
+      font-size: var(--font-size-xl);
+    }}*/

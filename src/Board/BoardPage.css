@@ -1,0 +1,67 @@
+.Line {
+    align-items: center;
+    display: flex;
+    margin: 25px 50px 10px 50px;
+}
+
+.WritePost{
+    padding: 8px 16px;
+    margin-left:20px;
+    font-size: 16px;
+    background-color: #B8DCB5; 
+    border-radius: 20px; 
+    cursor: pointer;
+}
+
+.TagLine1{
+    display: flex;
+    justify-content: flex-start;
+    margin-right:auto;
+}
+.tag1 {
+    background-color: #c8c8c8; 
+    padding: 8px 16px;
+    margin-left:20px;
+    font-size: 16px;
+    border-radius: 20px; 
+    cursor: pointer;
+}
+.tag1:hover{
+    background-color:#999999;
+}
+
+.SearchContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+.searchInput{
+    padding: 8px 16px;
+    font-size: 16px; 
+    border: none; 
+    border-radius: 20px;
+    outline: none; 
+    background-color: #B8DCB5;
+}
+/*.SearchIcon {
+    margin-left: 10px;
+    margin-right:10px;
+    margin-top: 20px;
+}
+
+.searchInput {
+    padding: 8px 16px;
+    margin-bottom:10px;
+    font-size: 16px; 
+    border: none; 
+    border-radius: 20px;
+    outline: none; 
+    background-color: #B8DCB5;
+}*/
+
+.posts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 가로로 2개씩 배열 */
+  } /* 게시물 한줄에 두개 표시 */

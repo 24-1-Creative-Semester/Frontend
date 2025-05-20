@@ -1,0 +1,39 @@
+.margin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #B8DCB5;
+  }
+  
+  .form {
+    background-color: #FFF; 
+    padding: 200px;
+    border: 2px solid #FFF;
+    border-radius: 10px;
+    text-align:center;
+  }
+
+  .login { /*아이디 비번 입력받는 클래스*/
+    text-align:center;
+    padding: 10px;
+    border: 1px solid #E6E6E6;
+    border-radius: 30px;
+    background-color: #E6E6E6; 
+    margin-bottom: 5px;
+    width: 300px;
+  }
+  
+  .loginButton {
+    padding: 10px;
+    border: 1px solid #E6E6E6;
+    border-radius: 30px;
+    background-color: #B8DCB5; 
+    color: #282c34;
+    width: 320px;
+  }
+  
+  .loginNotice{
+    color:gray;
+  }
+  
